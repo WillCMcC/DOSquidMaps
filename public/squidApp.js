@@ -114,7 +114,6 @@ $scope.showMarkers = function(){
 
   var markers = location.getMarkers()
   markers.updateModels($scope.markers)
-  $scope.newMarker = "+ Squid"
 
 }
 $scope.showPicker = function(){
@@ -122,7 +121,7 @@ $scope.showPicker = function(){
 
 
 
-  $scope.newMarker = "Center Squid"
+  $scope.newMarker = "+ Squid"
 
   var markers = location.getMarkers()
   var realMap = location.getMap().control.getGMap()
