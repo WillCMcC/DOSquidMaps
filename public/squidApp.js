@@ -103,7 +103,7 @@ $scope.zoomer= true;
 $scope.explore = "Explore";
 $scope.newMarker = "+ Squid"
 $scope.myLocationText = "Enable Location"
-$scope.uploadButtonText = "Upload Picture"
+$scope.uploadButtonText = "Take Picture"
 
 
 
