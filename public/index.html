@@ -31,7 +31,8 @@
             min-height: 100%;
             min-width: 50%;
             width:100%;
-            vertical-align: middle;
+            line-height: 100%;
+            display: table;
           }
           .rotate90 {
               -webkit-transform: rotate(90deg);
@@ -58,7 +59,7 @@
             width: 100%;
           }
           .map{
-            height:78%;
+            height:76%;
           }
           .topControl{
             height:12%;
@@ -67,7 +68,7 @@
           }
           .bottomControl{
             position:fixed;
-            height:10%;
+            height:12%;
             width:100%;
             text-align: center;
           }
@@ -94,16 +95,14 @@
             margin:auto;
           }
           t2{
-            display: inline-block;
-            font-size:  9vmin;
-            margin-top: 1% ;
+            font-size:  8vmin;
             margin-bottom:;
             margin-left: 0;
             margin-right: 0;
             font-weight: 100;
             text-align: center;
-            vertical-align: middle;
-            line-height:100%;
+            line-height:200%;
+
           }
 
 
@@ -169,7 +168,7 @@
 
       <div ng-if="zoomUpload" class="btn-large waves-effect waves-light
       grey darken-1 huge " ng-click="addClick()">
-        <t2>{{myLocationText}}</t2>
+      <t2>{{myLocationText}}</t2>
       </div>
       <div ng-if="!zoomUpload" type="file" accept="image/*" capture="camera"
       ngf-select ng-model="$parent.files"
