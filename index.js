@@ -107,6 +107,7 @@ apirouter.route('/markers')
 // takes a file upload and saves it to DB
 apirouter.route('/new_image')
     .post( multipartMiddleware, function(req, res, next) {
+			console.log("new Squid")
 				// imgur setup and upload
 				imgur.setClientId('c495aa665a64c56');
 				imgur.uploadFile(req.files.file.path)
@@ -114,7 +115,7 @@ apirouter.route('/new_image')
 				.then(function (json) {
           // remove picture from local memory
 					fs.unlink(req.files.file.path);
-					res.send("success");
+
 
             // save image to DB
 						var squid = new Squid({
@@ -123,6 +124,7 @@ apirouter.route('/new_image')
 							img_link: json.data.link,
 						});
 						squid.save(function (err, data) {
+							res.send("success");
 					}
 				)
 				.catch(function (err) {
@@ -140,7 +142,6 @@ apirouter.route('/new_image')
       imgur.uploadFile(req.files.file.path)
       // upload callback
 			    .then(function (json) {
-            res.send("success");
             // delete from temp memory
             fs.unlink(req.files.file.path);
             // create object to save to DB
@@ -151,10 +152,12 @@ apirouter.route('/new_image')
               });
               //  save squid
               squid.save(function (err, data) {
+								res.send("success");
               if (err) console.log(err);
               });
               //  tweet new squid!
-              client.post('statuses/update', {
+              if(process.argv[2] = 'prod'){
+							client.post('statuses/update', {
                 status: 'New Squid! ' + json.data.link,
                 lat: req.body.latitude,
                 long: req.body.longitude,
@@ -163,6 +166,7 @@ apirouter.route('/new_image')
                function(error, tweet, response){
                 if(error) throw error;
               });
+						}
           }
                 )
                 .catch(function (err) {

@@ -1,0 +1,24 @@
+html, body {
+    height: 100%;
+    margin: 0px;
+}
+#topControls{
+  border-style: solid;
+  border-width: thin;
+  border-color: red;
+  height: 20%;
+  width: 100%;
+}
+
+#map{
+  height: 60%;
+  width: 100%;
+}
+
+#bottomControls{
+  border-style: solid;
+  border-width: thin;
+  border-color: green;
+  height: 20%;
+  width: 100%;
+}

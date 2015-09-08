@@ -28,8 +28,10 @@
           border: 5px dashed blue;
           }
           .huge{
-            min-height: 10%;
-            min-width: 100%;
+            min-height: 100%;
+            min-width: 50%;
+            width:100%;
+            vertical-align: middle;
           }
           .rotate90 {
               -webkit-transform: rotate(90deg);
@@ -45,8 +47,7 @@
             align-content: flex-start;
             align-items: flex-start;
           }.titleImg{
-            width: 400px;
-            height: auto;
+            height: 90%;
             display:block;
             margin:auto;
           }.windowBox{
@@ -56,6 +57,56 @@
           }.colossal{
             width: 100%;
           }
+          .map{
+            height:78%;
+          }
+          .topControl{
+            height:12%;
+            text-align: center;
+            position: relative
+          }
+          .bottomControl{
+            position:fixed;
+            height:10%;
+            width:100%;
+            text-align: center;
+          }
+          .locationStyle{
+            height:100%;
+            width:100%;
+            float: left;
+          }
+          .smallPic{
+            width: 45%;
+          }
+          .topButtonStyle{
+            height: 100%;
+            width: 50%;
+            float: left;
+            position: absolute;
+            display: block;
+          }
+          .bordered{
+            border-style: solid;
+          }
+          .spinner{
+            display: block;
+            margin:auto;
+          }
+          t2{
+            display: inline-block;
+            font-size:  9vmin;
+            margin-top: 1% ;
+            margin-bottom:;
+            margin-left: 0;
+            margin-right: 0;
+            font-weight: 100;
+            text-align: center;
+            vertical-align: middle;
+            line-height:100%;
+          }
+
+
       </style>
       <script src="bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script>
       <script src="bower_components/angular/angular.min.js"></script>
@@ -79,22 +130,23 @@
     </head>
     <body ng-app='squidApp' ng-controller="MainCtrl">
 
+      <div class="topControl">
+        <div  id="markerButton" class=" btn-large waves-effect waves-light
+        grey darken-1 huge topButtonStyle bordered"  ng-click="showMarkers()" >
+          <t2>{{explore}}</t2>
+        </div>
+        <div id="placeSelector" class=" btn-large waves-effect waves-light
+        blue lighten-2 huge topButtonStyle" ng-click="showPicker()" >
+        <t2>  {{newMarker}}</t2>
+      </div >
+      </div>
+
+      <div class="map">
       <ui-gmap-google-map control="map.control" refresh="refresh" center='map.center' zoom='map.zoom' options='map.options' >
 
-          <script type="text/ng-template" id="control.tpl.html">
-          <button capture="camera" style="display: none;" ng-show="tingObj.location2" ngf-select ng-model="files"   ngf-capture='camera'  class=" btn-large waves-effect waves-light blue huge" ngf-multiple="true" id="addPicture" ><h4>Upload Picture at Squid</h4></button>
-          </script>
 
-          <script type="text/ng-template" id="control2.tpl.html">
-          <button  ng-show="buttonObj.location" class=" btn-large waves-effect waves-light blue huge" ng-click="addClick()"  ><h4>Zoom to Me</h4></button>
-          </script>
-
-        <div>
-          <ui-gmap-map-control  controller="buttonCtrl"   template="control2.tpl.html"  position="bottom-center"  ></ui-gmap-map-control>
-          <ui-gmap-map-control controller="buttonCtrl"  capture="camera"  template="control.tpl.html"  position="bottom-center"  index="-1" ></ui-gmap-map-control>
-        </div>
-
-      <ui-gmap-markers models="markers" coords="'coords'"  options="'options'" click='onClick' icon="{url: 'SquidMarker.png'}" idKey="id" control="markerControl"></ui-gmap-markers>
+      <ui-gmap-markers models="markers" coords="'coords'"  options="'options'" click='onClick' icon="{url: 'SquidMarker.png'}" idKey="id" control="markerControl">
+      </ui-gmap-markers>
 
       <ui-gmap-window
         coords="activeCoordinates"
@@ -103,21 +155,47 @@
         closeClick="test"
       >
         <div  class="tall">
-          <div>
-        <img  src = '{{currImage}}' class="titleImg" ng-click="$parent.nextImage()" >
-        <button   type="file" accept="image/*" capture="camera" ngf-select ng-model="albums"  class=" btn-large waves-effect waves-light blue huge" ng-controller="addPictureCtrl" ngf-multiple="true" ngf-capture="camera" ><h4>Add Picture</h4></button>
 
-
-
-
-        </div>
       </div>
 
 
 
       </ui-gmap-window>
+
         </ui-gmap-google-map>
-        </div>
+
+      </div>
+      <div class="bottomControl">
+
+      <div ng-if="zoomUpload" class="btn-large waves-effect waves-light
+      grey darken-1 huge " ng-click="addClick()">
+        <t2>{{myLocationText}}</t2>
+      </div>
+      <div ng-if="!zoomUpload" type="file" accept="image/*" capture="camera"
+      ngf-select ng-model="$parent.files"
+       ngf-multiple="true"
+      ngf-capture="camera" class="btn-large waves-effect waves-light
+      blue lighten-2 huge">
+        <t2>{{uploadButtonText}}</t2>
+      </div>
+
+      </div>
+
+      <div id="modal1" class="modal">
+      <div>
+      <img  src = '{{currImage}}' class="titleImg" ng-click="nextImage()" >
+      <div   type="file" accept="image/*" capture="camera"
+      ngf-select ng-model="albums"  class=" btn-large waves-effect waves-light
+      blue huge" ng-controller="addPictureCtrl" ngf-multiple="true"
+      ngf-capture="camera" ><h4>Add Picture</h4></div>
+      </div>
+
+      </div>
+
+      <div id="loadingModal" class="modal">
+        <img class="spinner" src="spinner.gif">
+
+      </div>
 
     </body>
   </html>
