@@ -1,6 +1,6 @@
 // Initial Varibales
 
-var port = 6969;
+var port = process.env.PORT || 6969;
 
 
 
