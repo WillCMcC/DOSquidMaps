@@ -160,7 +160,7 @@ $scope.addClick = function(){
 
   $scope.$watch('files', function (newValue) {
     console.log(newValue);
-    if (newValue && newValue != []){
+    if (newValue != undefined && newValue[0]){
        $('#loadingModal').openModal();
       uploadUsingUpload($scope.files);
     }
@@ -349,8 +349,11 @@ function($scope, $http, Upload, $window, location, $route, markerInfo){
     $scope.newMarker = "Add Squid"
   }
 
+
+
+
     $scope.$watch('albums', function(newValue, oldValue) {
-      if (newValue != undefined) {
+      if (newValue != undefined && newValue[0]) {
         $('#loadingModal').openModal();
         addToAlbum($scope.albums);
       }
