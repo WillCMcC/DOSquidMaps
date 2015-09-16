@@ -175,8 +175,8 @@ $scope.addClick = function(){
         file.upload = Upload.upload({
             url: '/api/new_squid',
             fields: {
-                'latitude': location.getMarkers().getGMarkers()[0].position.G,
-                'longitude': location.getMarkers().getGMarkers()[0].position.K
+                'latitude': location.getMarkers().getGMarkers()[0].model.coords.latitude,
+                'longitude': location.getMarkers().getGMarkers()[0].model.coords.longitude,
             },
             file: file
         });
