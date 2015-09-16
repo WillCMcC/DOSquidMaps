@@ -123,13 +123,14 @@ $scope.showPicker = function(){
 
   $scope.newMarker = "+ Squid"
 
+
   var markers = location.getMarkers()
   var realMap = location.getMap().control.getGMap()
   var obj = {
     id: 1,
     coords: {
-      latitude: realMap.center.G,
-      longitude: realMap.center.K,
+      latitude: realMap.getCenter().lat(),
+      longitude: realMap.getCenter().lng(),
     },
     options: {
       draggable: true,
@@ -158,7 +159,6 @@ $scope.addClick = function(){
 }
 
   $scope.$watch('files', function (newValue) {
-    console.log(newValue);
     if (newValue != undefined && newValue[0]){
        $('#loadingModal').openModal();
       uploadUsingUpload($scope.files);
