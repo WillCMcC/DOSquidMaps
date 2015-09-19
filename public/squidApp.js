@@ -155,9 +155,8 @@ $scope.addClick = function(){
     $scope.notificationShow = false;
     $scope.$apply()
   },3000);
-
   navigator.geolocation.getCurrentPosition(function(position) {
-
+    console.log(position);
     var realMap = location.getMap().control.getGMap()
     var markers = location.getMarkers()
 
@@ -192,9 +191,8 @@ $scope.addClick = function(){
     }
 
 
-  });
+  }, showError);
 }
-
   $scope.$watch('files', function (newValue) {
     if (newValue != undefined && newValue[0]){
       uploadUsingUpload($scope.files);
@@ -204,6 +202,30 @@ $scope.addClick = function(){
     }
   });
 
+  function showError(error) {
+      switch(error.code) {
+          case error.PERMISSION_DENIED:
+              $scope.notification = "Turn On Location"
+              $scope.notificationShow = true;
+              $scope.$apply();
+              break;
+          case error.POSITION_UNAVAILABLE:
+              $scope.notification = "Location information is unavailable."
+              $scope.notificationShow = true;
+              $scope.$apply();
+              break;
+          case error.TIMEOUT:
+            $scope.notification = "Request to get location timed out."
+            $scope.notificationShow = true;
+            $scope.$apply();
+              break;
+          case error.UNKNOWN_ERROR:
+              $scope.notification = "An unknown error occurred."
+              $scope.notificationShow = true;
+              $scope.$apply();
+              break;
+      }
+  }
 
 
 
