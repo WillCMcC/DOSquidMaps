@@ -156,7 +156,7 @@ apirouter.route('/new_image')
               if (err) console.log(err);
               });
               //  tweet new squid!
-              if(process.argv[2] = 'prod'){
+              if(process.argv[2] == 'prod'){
 							client.post('statuses/update', {
                 status: 'New Squid! ' + json.data.link,
                 lat: req.body.latitude,

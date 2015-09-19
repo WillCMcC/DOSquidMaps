@@ -153,7 +153,6 @@ $scope.addClick = function(){
   $scope.notificationShow = true;
 
   navigator.geolocation.getCurrentPosition(function(position) {
-    $scope.notification = "Got it!"
 
     var realMap = location.getMap().control.getGMap()
     var markers = location.getMarkers()
@@ -167,6 +166,7 @@ $scope.addClick = function(){
     $scope.notificationColor = {background: "#8bc34a"}
     setTimeout(function(){
       $scope.notificationShow = false;
+      $scope.$apply()
     },3000);
 
     if($scope.showCamera){
