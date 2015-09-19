@@ -148,6 +148,7 @@ $scope.showPicker = function(){
 
 
 $scope.addClick = function(){
+  $(".notifications").css("background", "red");
   $scope.notification = "Getting Location"
   $scope.notificationShow = true;
 
@@ -168,8 +169,10 @@ $scope.addClick = function(){
 
   $scope.$watch('files', function (newValue) {
     if (newValue != undefined && newValue[0]){
-       $('#loadingModal').openModal();
       uploadUsingUpload($scope.files);
+      $(".notifications").css("background", "#2196f3");
+      $scope.notification = "Uploading Squid"
+      $scope.notificationShow = true;
     }
   });
 
@@ -191,7 +194,11 @@ $scope.addClick = function(){
         file.upload.progress(function (evt) {
         });
         file.upload.success(function (data, status, headers, config) {
-          $('#loadingModal').closeModal();
+          $(".notifications").css("background", "#8bc34a");
+          $scope.notification = "Success!"
+          setTimeout(function(){
+            $scope.notificationShow = false;
+          },3000);
           $http.get('/api/markers').
           success(function(data, status, headers, config) {
             if(data.length != 0){
