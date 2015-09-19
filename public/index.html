@@ -190,7 +190,7 @@
       <div class="bottomControl">
 
 
-      <div ng-if="!zoomUpload" type="file" accept="image/*" capture="camera"
+      <div ng-show="showCamera" type="file" accept="image/*" capture="camera"
       ngf-select ng-model="$parent.files"
        ngf-multiple="true"
       ngf-capture="camera" class="waves-effect waves-light cameraButton">

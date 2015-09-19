@@ -113,7 +113,7 @@ $scope.uploadButtonText = "Take Picture"
 
 
 $scope.showMarkers = function(){
-  $scope.zoomUpload = true;
+  $scope.showCamera = false;
 
     // $( "#markerButton" ).removeClass( " darken-3" );
 
@@ -122,7 +122,7 @@ $scope.showMarkers = function(){
 
 }
 $scope.showPicker = function(){
-  $scope.zoomUpload = false;
+  $scope.showCamera = true;
 
 
 
@@ -169,8 +169,9 @@ $scope.addClick = function(){
       $scope.notificationShow = false;
     },3000);
 
-    if($scope.zoomUpload = false){
+    if($scope.showCamera){
       var markers = location.getMarkers()
+      var realMap = location.getMap().control.getGMap()
       var obj = {
         id: 1,
         coords: {
@@ -182,8 +183,11 @@ $scope.addClick = function(){
           title: "Set Location"
          },
       }
+
       markers.newModels([obj])
     }
+
+
   });
 }
 
