@@ -151,6 +151,10 @@ $scope.addClick = function(){
   $scope.notificationColor = {background: "red"}
   $scope.notification = "Getting Location"
   $scope.notificationShow = true;
+  setTimeout(function(){
+    $scope.notificationShow = false;
+    $scope.$apply()
+  },3000);
 
   navigator.geolocation.getCurrentPosition(function(position) {
 
@@ -160,7 +164,7 @@ $scope.addClick = function(){
     userLoc.lat = position.coords.latitude;
     userLoc.lng = position.coords.longitude;
     location.setLocation(userLoc);
-    realMap.setZoom(18);
+    realMap.setZoom(16);
     realMap.setCenter(userLoc);
     $scope.notification = "Success!";
     $scope.notificationColor = {background: "#8bc34a"}
