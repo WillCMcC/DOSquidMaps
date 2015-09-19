@@ -59,23 +59,21 @@
             width: 100%;
           }
           .map{
-            height:76%;
+            height: 92vh;
           }
           .topControl{
-            height:12%;
+            height:8vh;
             text-align: center;
             position: relative
           }
           .bottomControl{
-            position:fixed;
-            height:12%;
-            width:100%;
-            text-align: center;
+            position: fixed;
+            right: 0vw;
+            bottom: 0vh;
           }
           .locationStyle{
             height:100%;
-            width:100%;
-            float: left;
+
           }
           .smallPic{
             width: 45%;
@@ -99,7 +97,7 @@
             height: 100%;
           }
           t2{
-            font-size:  8vmin;
+            font-size:  4vh;
             margin-bottom:;
             margin-left: 0;
             margin-right: 0;
@@ -107,7 +105,25 @@
             text-align: center;
             line-height:200%;
 
+          }.notifications{
+            position: absolute;
+            background-color: red;
+            height: 10vw;
+            width: 100%;
+            z-index: 3;
+            opacity: .6;
+            font-weight: bold;
+            text-align: center;
+            font-size: 8vw;
+            color: white;
           }
+          .wrapper{
+            position:relative;
+          }
+          .cameraButton{
+            bottom: 0vh;
+          }
+     }
 
 
       </style>
@@ -143,7 +159,8 @@
         <t2>  {{newMarker}}</t2>
       </div >
       </div>
-
+      <div class="mapWrapper">
+      <div ng-show="notificationShow" class="notifications">{{notification}}</div>
       <div class="map">
       <ui-gmap-google-map control="map.control" refresh="refresh" center='map.center' zoom='map.zoom' options='map.options' >
 
@@ -166,20 +183,20 @@
       </ui-gmap-window>
 
         </ui-gmap-google-map>
+      </div>
 
       </div>
       <div class="bottomControl">
 
-      <div ng-if="zoomUpload" class="btn-large waves-effect waves-light
-      grey darken-1 huge " ng-click="addClick()">
-      <t2>{{myLocationText}}</t2>
-      </div>
+      <a  class="waves-effect waves-light
+       locationStyle" ng-click="addClick()">
+      <img height="150vh" src="8982.svg">
+    </a>
       <div ng-if="!zoomUpload" type="file" accept="image/*" capture="camera"
       ngf-select ng-model="$parent.files"
        ngf-multiple="true"
-      ngf-capture="camera" class="btn-large waves-effect waves-light
-      blue lighten-2 huge">
-        <t2>{{uploadButtonText}}</t2>
+      ngf-capture="camera" class="waves-effect waves-light cameraButton">
+          <img height="150vh" src="camera-icon.png">
       </div>
 
       </div>

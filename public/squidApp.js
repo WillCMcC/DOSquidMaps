@@ -63,6 +63,11 @@ $scope.map = {
   options: {
     mapTypeControl: false,
     overviewMapControl: true,
+    zoomControl: false,
+    scaleControl: false,
+    streetViewControl: false,
+    rotateControl: false
+
 
   },
   control: {},
@@ -93,7 +98,7 @@ $scope.refresh = false;
 
 $scope.currImage = "";
 
-
+$scope.notification = "Turn Location On!"
 
 $scope.test = function(){
   $scope.show = false;
@@ -143,9 +148,11 @@ $scope.showPicker = function(){
 
 
 $scope.addClick = function(){
-
+  $scope.notification = "Getting Location"
+  $scope.notificationShow = true;
 
   navigator.geolocation.getCurrentPosition(function(position) {
+    $scope.notification = "Got it!"
 
     var realMap = location.getMap().control.getGMap()
     var markers = location.getMarkers()
@@ -155,6 +162,7 @@ $scope.addClick = function(){
     location.setLocation(userLoc);
     realMap.setZoom(18);
     realMap.setCenter(userLoc);
+    $scope.notificationShow = false;
   });
 }
 
@@ -239,7 +247,6 @@ $scope.addClick = function(){
     userLoc.lat = position.coords.latitude;
     userLoc.lng = position.coords.longitude;
     location.setLocation(userLoc);
-
   });
 
 
