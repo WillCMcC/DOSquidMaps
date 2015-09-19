@@ -161,7 +161,7 @@
       </div >
       </div>
       <div class="mapWrapper">
-      <div ng-show="notificationShow" class="notifications">{{notification}}</div>
+      <div ng-style="notificationColor" ng-show="notificationShow" class="notifications">{{notification}}</div>
       <div class="map">
       <ui-gmap-google-map control="map.control" refresh="refresh" center='map.center' zoom='map.zoom' options='map.options' >
 

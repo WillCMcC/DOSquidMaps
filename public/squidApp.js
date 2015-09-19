@@ -148,7 +148,7 @@ $scope.showPicker = function(){
 
 
 $scope.addClick = function(){
-  $(".notifications").css("background", "red");
+  $scope.notificationColor = {background: "red"}
   $scope.notification = "Getting Location"
   $scope.notificationShow = true;
 
@@ -164,17 +164,33 @@ $scope.addClick = function(){
     realMap.setZoom(18);
     realMap.setCenter(userLoc);
     $scope.notification = "Success!";
-    $(".notifications").css("background", "#8bc34a");
+    $scope.notificationColor = {background: "#8bc34a"}
     setTimeout(function(){
       $scope.notificationShow = false;
     },3000);
+
+    if($scope.zoomUpload = false){
+      var markers = location.getMarkers()
+      var obj = {
+        id: 1,
+        coords: {
+          latitude: realMap.getCenter().lat(),
+          longitude: realMap.getCenter().lng(),
+        },
+        options: {
+          draggable: true,
+          title: "Set Location"
+         },
+      }
+      markers.newModels([obj])
+    }
   });
 }
 
   $scope.$watch('files', function (newValue) {
     if (newValue != undefined && newValue[0]){
       uploadUsingUpload($scope.files);
-      $(".notifications").css("background", "#2196f3");
+      $scope.notificationColor = {background: "#2196f3"}
       $scope.notification = "Uploading Squid..."
       $scope.notificationShow = true;
     }
