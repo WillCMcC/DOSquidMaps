@@ -163,7 +163,11 @@ $scope.addClick = function(){
     location.setLocation(userLoc);
     realMap.setZoom(18);
     realMap.setCenter(userLoc);
-    $scope.notificationShow = false;
+    $scope.notification = "Success!";
+    $(".notifications").css("background", "#8bc34a");
+    setTimeout(function(){
+      $scope.notificationShow = false;
+    },3000);
   });
 }
 
@@ -171,7 +175,7 @@ $scope.addClick = function(){
     if (newValue != undefined && newValue[0]){
       uploadUsingUpload($scope.files);
       $(".notifications").css("background", "#2196f3");
-      $scope.notification = "Uploading Squid"
+      $scope.notification = "Uploading Squid..."
       $scope.notificationShow = true;
     }
   });

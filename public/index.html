@@ -69,7 +69,7 @@
           .bottomControl{
             position: fixed;
             right: 0vw;
-            bottom: 0vh;
+            bottom: 1vh;
           }
           .locationStyle{
             height:100%;
@@ -188,16 +188,17 @@
       </div>
       <div class="bottomControl">
 
-      <a  class="waves-effect waves-light
-       locationStyle" ng-click="addClick()">
-      <img height="150vh" src="8982.svg">
-    </a>
+
       <div ng-if="!zoomUpload" type="file" accept="image/*" capture="camera"
       ngf-select ng-model="$parent.files"
        ngf-multiple="true"
       ngf-capture="camera" class="waves-effect waves-light cameraButton">
           <img height="150vh" src="camera-icon.png">
       </div>
+      <div class="waves-effect waves-light
+       locationStyle" ng-click="addClick()">
+      <img height="150vh" src="8982.svg">
+    </div>
 
       </div>
 
