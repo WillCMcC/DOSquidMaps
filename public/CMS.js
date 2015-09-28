@@ -11,7 +11,7 @@ function($scope, $http, $window, $route, Upload, uiGmapIsReady){
 
 $('a[href^="#"]').on('click',function (e) {
     e.preventDefault();
-    var target = this.hash,
+    var target = this.hash + 1,
     $target = $(target);
     $('html, body').stop().animate({
         'scrollTop': $target.offset().top
