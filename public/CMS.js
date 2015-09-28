@@ -11,7 +11,7 @@ function($scope, $http, $window, $route, Upload, uiGmapIsReady){
 
 $('a[href^="#"]').on('click',function (e) {
     e.preventDefault();
-    var target = this.hash + 1,
+    var target = this.hash,
     $target = $(target);
     $('html, body').stop().animate({
         'scrollTop': $target.offset().top
@@ -262,7 +262,7 @@ $scope.showAll = function(){
 
 function squidClicker(a,b,c) {
   console.log("using the clicker")
-  window.location.href = "#" + c.coords.latitude;
+  window.location = "/view/cms/#" + c.coords.latitude;
     for(var i=0;i<$scope.markers.length;i++){
       if($scope.markerz[i].coords == c.coords){
         console.log("gitit")
