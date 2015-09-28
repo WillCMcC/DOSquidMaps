@@ -1,0 +1,56 @@
+<html>
+  <head>
+    <title>Squid CMS</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <script src="/bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script>
+    <script src="/bower_components/angular/angular.min.js"></script>
+    <script src="/bower_components/underscore/underscore-min.js"></script>
+    <script src="/bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+    <script src="/bower_components/lodash/lodash.min.js"></script>
+    <script src="/bower_components/angular-route/angular-route.min.js"></script>
+    <script src='https:maps.googleapis.com/maps/api/js?sensor=false'></script>
+    <script src='/bower_components/angular-google-maps/dist/angular-google-maps.min.js'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bower_components/materialize/css/materialize.min.css">
+    <script src="/bower_components/materialize/js/materialize.min.js"></script>
+    <script src="/CMS.js"></script>
+
+
+
+
+  </head>
+  <body ng-app='CMS' ng-controller="CMSControl">
+
+    <div class="map" ng-if="showMe">
+    <ui-gmap-google-map control="map.control" center='map.center' zoom='map.zoom' options='map.options' >
+      <ui-gmap-markers models="markerz" coords="'coords'"  options="'options'" click='onClick' icon="{url: '/SquidMarker.png'}" idKey="id" control="markerControl">
+      </ui-gmap-markers>
+
+
+
+      </ui-gmap-google-map>
+    </div>
+    <div class="squidContainer">
+    <div ng-repeat="squid in markers" class="squid" id="{{squid.coords.latitude}}">
+    {{ $index}}
+      <div ng-repeat="image in squid.images">
+      <img height="300px" src="{{squid.images[$index]}}"></img>
+    </div>
+      <br><br>
+      <button ng-click="showMap(squid.id)">Show Me</button>
+      <button ng-show="squid.show" ng-click="setLocation(squid)">Set Location</button>
+      <button ng-show="squid.show" ng-click="delete(squid)">Delete</button>
+      <button ng-show="squid.show" ng-click="showAll()">Show All Markers</button>
+
+
+
+
+    </div>
+  </div>
+
+
+  </body>
+</html>

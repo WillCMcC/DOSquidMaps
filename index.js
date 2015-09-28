@@ -102,11 +102,35 @@ apirouter.route('/markers')
 
   		})
   });
+	apirouter.route('/changeLocation')
+		.post(multipartMiddleware, function(req, res, next) {
+			var squid = req.body.squidChanger;
+			var newSquid = JSON.parse(squid);
+			for(var i=0;i<newSquid.images.length;i++){
+				Squid.findOne({ 'img_link': newSquid.images[i] }, function (err, squid) {
+					squid.lat = newSquid.coords.latitude
+					squid.long = newSquid.coords.longitude
+					squid.save(function(err, data){
+
+					});
+				})
+				if(i == newSquid.images.length -1){
+					res.send("success");
+				}
+			}
+	  });
+		apirouter.route('/deletePicture/:id')
+			.delete( function(req, res, next) {
+				// var query = {'lat': req.params.id}
+				// db.collection.remove(query);
+				Squid.find({'lat': req.params.id}).remove().exec()
+				res.send("Success")
+			});
 
 // Route for /api/new_image
 // takes a file upload and saves it to DB
 apirouter.route('/new_image')
-    .post( multipartMiddleware, function(req, res, next) {
+    .put( multipartMiddleware, function(req, res, next) {
 			console.log("new Squid")
 				// imgur setup and upload
 				imgur.setClientId('c495aa665a64c56');
@@ -188,6 +212,11 @@ var viewRoutes = express.Router();
 viewRoutes.use(function(req, res, next) {
     next(); // make sure we go to the next routes and don't stop here
 });
+
+viewRoutes.route('/cms')
+	.get(function(req, res) {
+      res.sendFile('/public/CMS.html', { root: __dirname });
+  });
 
 app.use('/view/', viewRoutes);
 
