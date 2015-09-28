@@ -44,10 +44,10 @@ success(function(data, status, headers, config) {
 
     }
       obj.onClick = squidClicker;
-
-
       $scope.markers.push(obj);
       $scope.markerz.push(obj);
+
+
 
     }
   }
@@ -163,6 +163,8 @@ var file = {};
         }
           obj.onClick = squidClicker
           $scope.markers.push(obj);
+          $scope.markerz.push(obj);
+
         }
       }
       }
@@ -209,6 +211,7 @@ $scope.delete = function(x){
           }
             obj.onClick = squidClicker
             $scope.markers.push(obj);
+            $scope.markerz.push(obj);
           }
         }
         }
@@ -223,10 +226,8 @@ $scope.delete = function(x){
 
 $scope.showAll = function(){
   delete $scope.thisSquid
-  for(var i =0; i<$scope.markers.length;i++){
-    $scope.markers[i].show = false;
-  }
   console.log("test")
+  $scope.dumbArr = []
   $http.get('/api/markers').
   success(function(data, status, headers, config) {
     if(data.length != 0){
@@ -248,9 +249,11 @@ $scope.showAll = function(){
 
       }
         obj.onClick = squidClicker;
+        $scope.dumbArr.push(obj);
         $scope.markerz.push(obj);
       }
     }
+    $scope.markers = $scope.dumbArr;
     }
 
   }).
@@ -261,16 +264,24 @@ $scope.showAll = function(){
 }
 
 function squidClicker(a,b,c) {
-  console.log("using the clicker")
-  window.location = "/view/cms/#" + c.coords.latitude;
+  console.log(c.coords)
+  var theMap = $scope.map.control.getGMap()
+  var latLng = {
+    lat: c.coords.latitude,
+    lng: c.coords.longitude,
+  }
+  theMap.setCenter(latLng)
+
     for(var i=0;i<$scope.markers.length;i++){
-      if($scope.markerz[i].coords == c.coords){
+      $scope.markers[i].show = false;
+      if($scope.markers[i].coords == c.coords){
         console.log("gitit")
         $scope.markers[i].show = true;
-      }else{
-      $scope.markers[i].show = false;
-      $scope.$apply()
-    }
+        console.log($scope.markers[i])
+        window.location = "/view/cms/#" + c.coords.latitude;
+      }
+
+
   }
 
 }
