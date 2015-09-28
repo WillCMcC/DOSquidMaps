@@ -275,9 +275,6 @@ function squidClicker(a,b,c) {
     for(var i=0;i<$scope.markers.length;i++){
       $scope.markers[i].show = false;
       if($scope.markers[i].coords == c.coords){
-        console.log("gitit")
-        $scope.markers[i].show = true;
-        console.log($scope.markers[i])
         window.location = "/view/cms/#" + c.coords.latitude;
       }
 
