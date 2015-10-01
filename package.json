@@ -1,7 +1,7 @@
 {
-  "name": "firstCup",
+  "name": "SquidMaps",
   "version": "0.0.0",
-  "description": "The first cup dude!",
+  "description": "Mapping the squids",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -14,7 +14,8 @@
     "connect-multiparty": "^2.0.0",
     "express": "^4.13.3",
     "imgur": "^0.1.6",
-    "mongoose": "^3.8.24",
+    "mongodb": "^2.0.14",
+    "mongoose": "^4.1.9",
     "twitter": "^1.2.5",
     "underscore": "^1.8.3"
   }
