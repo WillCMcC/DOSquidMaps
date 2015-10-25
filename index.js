@@ -12,6 +12,7 @@ var multipart = require('connect-multiparty');
 var fs = require('fs');
 var Twitter = require('twitter');
 var imgur = require('imgur');
+var compress = require('compression');
 
 // Set up multipart middleware
 var multipartMiddleware = multipart();
@@ -27,6 +28,7 @@ server.listen(port, function(){
 });
 //set Static Files
 app.use(express.static(__dirname + '/public'));
+app.use(compress())
 
 
 //Database Intialization
@@ -203,6 +205,7 @@ apirouter.route('/new_image')
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
 app.use('/api', apirouter);
+
 
 //  Routes for View
 //  init router for views
