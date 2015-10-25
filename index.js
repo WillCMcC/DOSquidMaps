@@ -38,7 +38,7 @@ app.use(express.static(__dirname + '/public'));
 var env = process.argv[2] || 'dev';
 switch (env) {
     case 'dev':
-        var mongoDatabase = 'mongodb://localhost/realMap';
+        var mongoDatabase = 'mongodb://localhost/realMap2';
         break;
     case 'prod':
         var mongoDatabase = 'will:pass@ds035503.mongolab.com:35503/heroku_wb5mrk1g';
