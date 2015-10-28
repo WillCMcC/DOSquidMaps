@@ -12,6 +12,7 @@ var multipart = require('connect-multiparty');
 var fs = require('fs');
 var Twitter = require('twitter');
 var imgur = require('imgur');
+var compress = require('compression');
 
 // Set up multipart middleware
 var multipartMiddleware = multipart();
@@ -27,6 +28,7 @@ server.listen(port, function(){
 });
 //set Static Files
 app.use(express.static(__dirname + '/public'));
+app.use(compress())
 
 
 //Database Intialization
@@ -38,7 +40,7 @@ app.use(express.static(__dirname + '/public'));
 var env = process.argv[2] || 'dev';
 switch (env) {
     case 'dev':
-        var mongoDatabase = 'mongodb://localhost/realMap';
+        var mongoDatabase = 'mongodb://localhost/realMap2';
         break;
     case 'prod':
         var mongoDatabase = 'will:pass@ds035503.mongolab.com:35503/heroku_wb5mrk1g';
@@ -102,11 +104,35 @@ apirouter.route('/markers')
 
   		})
   });
+	apirouter.route('/changeLocation')
+		.post(multipartMiddleware, function(req, res, next) {
+			var squid = req.body.squidChanger;
+			var newSquid = JSON.parse(squid);
+			for(var i=0;i<newSquid.images.length;i++){
+				Squid.findOne({ 'img_link': newSquid.images[i] }, function (err, squid) {
+					squid.lat = newSquid.coords.latitude
+					squid.long = newSquid.coords.longitude
+					squid.save(function(err, data){
+
+					});
+				})
+				if(i == newSquid.images.length -1){
+					res.send("success");
+				}
+			}
+	  });
+		apirouter.route('/deletePicture/:id')
+			.delete( function(req, res, next) {
+				// var query = {'lat': req.params.id}
+				// db.collection.remove(query);
+				Squid.find({'lat': req.params.id}).remove().exec()
+				res.send("Success")
+			});
 
 // Route for /api/new_image
 // takes a file upload and saves it to DB
 apirouter.route('/new_image')
-    .post( multipartMiddleware, function(req, res, next) {
+    .put( multipartMiddleware, function(req, res, next) {
 			console.log("new Squid")
 				// imgur setup and upload
 				imgur.setClientId('c495aa665a64c56');
@@ -180,6 +206,7 @@ apirouter.route('/new_image')
 // all of our routes will be prefixed with /api
 app.use('/api', apirouter);
 
+
 //  Routes for View
 //  init router for views
 var viewRoutes = express.Router();
@@ -188,6 +215,11 @@ var viewRoutes = express.Router();
 viewRoutes.use(function(req, res, next) {
     next(); // make sure we go to the next routes and don't stop here
 });
+
+viewRoutes.route('/cms')
+	.get(function(req, res) {
+      res.sendFile('/public/CMS.html', { root: __dirname });
+  });
 
 app.use('/view/', viewRoutes);
 

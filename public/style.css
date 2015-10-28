@@ -1,0 +1,25 @@
+.squid{
+  height: auto;
+  overflow:hidden;
+  border-style: solid;
+
+}
+.angular-google-map-container
+{
+  position: fixed;
+  float: right;
+  top: 0%;
+  right: 0%;
+  height: 100%;
+  width: 60%;
+}.map{
+
+}
+.squidContainer{
+  height: 100vh;
+  overflow: auto;
+  width: 40%
+}.squidContainer img{
+  float: left;
+  padding: 10px;
+}

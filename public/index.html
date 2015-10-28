@@ -137,11 +137,12 @@
       <script src='bower_components/angular-google-maps/dist/angular-google-maps.min.js'></script>
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.min.js"></script>
       <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-      <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-      <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
       <link rel="stylesheet" href="/bower_components/materialize/css/materialize.min.css">
       <script src="bower_components/materialize/js/materialize.min.js"></script>
-      <script src="squidApp.js"></script>
+
+      <!-- AngularJS Application Specific Scripts -->
+        <script src="app/app.js"></script>
+        <script src="app/controllers/mainControl.js"></script>
 
 
 
@@ -172,7 +173,7 @@
         coords="activeCoordinates"
         show= "show"
         templateParameter="marker"
-        closeClick="test"
+        closeClick="closeModal"
       >
         <div  class="tall">
 
@@ -209,8 +210,8 @@
     </div>
       <div class="modal-footer">
         <div   type="file" accept="image/*" capture="camera"
-        ngf-select ng-model="albums"  class=" btn-large waves-effect waves-light
-        blue addPic" ng-controller="addPictureCtrl" ngf-multiple="true"
+        ngf-select ng-model="$parent.albums"  class=" btn-large waves-effect waves-light
+        blue addPic"  ngf-multiple="true"
         ngf-capture="camera" ><h4>Add Picture</h4></div>
         </div>
       </div>
