@@ -192,7 +192,7 @@ apirouter.route('/new_image')
 							// If successful, a media object will be returned.
 							// Lets tweet it
 							var status = {
-							status: 'New Squid!',
+							status: 'New Squid near ' + req.body.place,
 							lat: req.body.latitude,
 							long: req.body.longitude,
 							display_coordinates: true,
