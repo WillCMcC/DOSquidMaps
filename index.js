@@ -162,7 +162,6 @@ apirouter.route('/new_image')
 // takes a file upload, uploads to imgur, saves to DB
 		apirouter.route('/new_squid')
 		.post( multipartMiddleware, function(req, res, next) {
-			console.log("hit upload bish");
 
 
 			// imgur setup and upload
@@ -170,7 +169,6 @@ apirouter.route('/new_image')
       imgur.uploadFile(req.files.file.path)
       // upload callback
 			    .then(function (json) {
-						console.log("hit imgur bish");
 
 
             // create object to save to DB
@@ -181,22 +179,17 @@ apirouter.route('/new_image')
               });
               //  save squid
               squid.save(function (err, data) {
-								console.log("saved bish");
 
 								res.send("success");
               if (err) console.log(err);
               });
               //  tweet new squid!
               if(process.argv[2] == 'prod'){
-								console.log("prod bish");
-								console.log(req.files)
 							var pic = fs.readFileSync(req.files.file.path);
 
 							client.post('media/upload', {media: pic}, function(error, media, response){
-								console.log("upload bish");
 								if(error){console.log(error)}
 							// If successful, a media object will be returned.
-							console.log(media);
 							// Lets tweet it
 							var status = {
 							status: 'New Squid!',
@@ -207,10 +200,8 @@ apirouter.route('/new_image')
 						}
 
 							client.post('statuses/update', status, function(error, tweet, response){
-								console.log("tweeter bish");
 
 							if (!error) {
-							console.log(tweet);
 							}
 							fs.unlink(req.files.file.path);
 							});
