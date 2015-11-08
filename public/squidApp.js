@@ -195,9 +195,10 @@ $scope.addClick = function(){
 }
   $scope.$watch('files', function (newValue) {
     if (newValue != undefined && newValue[0]){
+      console.log("mama")
       uploadUsingUpload($scope.files);
       $scope.notificationColor = {background: "#2196f3"}
-      $scope.notification = "Uploading Squid..."
+      $scope.notification = "Uploading ??..."
       $scope.notificationShow = true;
     }
   });
@@ -232,7 +233,23 @@ $scope.addClick = function(){
 
 
   function uploadUsingUpload(files) {
+    console.log("upload")
+    var streetname = "";
         var file = files[0];
+        var geocoder = new google.maps.Geocoder;
+        console.log(geocoder)
+        geocoder.geocode({'location': latlng}, function(results, status) {
+          console.log("in geocode")
+          if (status === google.maps.GeocoderStatus.OK) {
+          if (results[1]) {
+          streetname = results[1].formatted_address;
+          console.log(streetname);
+        } else {
+          streetname = "unspecified location";
+          console.log(streetname);
+        }
+        }
+        });
         file.upload = Upload.upload({
             url: '/api/new_squid',
             fields: {
