@@ -96,7 +96,7 @@ apirouter.use(function(req, res, next) {
 
 apirouter.route('/markers')
 	.get(function(req, res) {
-		console.log("homepage view ");
+		console.log("homepage view");
       Squid.find(function(err, squids) {
           if (err){res.send(err)};
           var squidObj = querysetToSquids(squids);
