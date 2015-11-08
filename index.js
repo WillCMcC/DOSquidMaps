@@ -86,7 +86,6 @@ var apirouter = express.Router();
 // middleware to use for all requests
 apirouter.use(function(req, res, next) {
     // do logging
-    console.log('Something is .');
   // make sure we go to the next routes and don't stop here
     next();
 });
@@ -97,6 +96,7 @@ apirouter.use(function(req, res, next) {
 
 apirouter.route('/markers')
 	.get(function(req, res) {
+		console.log("getting markers changed");
       Squid.find(function(err, squids) {
           if (err){res.send(err)};
           var squidObj = querysetToSquids(squids);
@@ -106,6 +106,7 @@ apirouter.route('/markers')
   });
 	apirouter.route('/changeLocation')
 		.post(multipartMiddleware, function(req, res, next) {
+			console.log("location changed");
 			var squid = req.body.squidChanger;
 			var newSquid = JSON.parse(squid);
 			for(var i=0;i<newSquid.images.length;i++){
@@ -123,6 +124,7 @@ apirouter.route('/markers')
 	  });
 		apirouter.route('/deletePicture/:id')
 			.delete( function(req, res, next) {
+				console.log("delete")
 				// var query = {'lat': req.params.id}
 				// db.collection.remove(query);
 				Squid.find({'lat': req.params.id}).remove().exec()
@@ -133,7 +135,7 @@ apirouter.route('/markers')
 // takes a file upload and saves it to DB
 apirouter.route('/new_image')
     .put( multipartMiddleware, function(req, res, next) {
-			console.log("new Squid")
+			console.log("New Squid")
 				// imgur setup and upload
 				imgur.setClientId('c495aa665a64c56');
 				imgur.uploadFile(req.files.file.path)
@@ -233,6 +235,7 @@ viewRoutes.use(function(req, res, next) {
 
 viewRoutes.route('/cms')
 	.get(function(req, res) {
+			console.log("cms view")
       res.sendFile('/public/CMS.html', { root: __dirname });
   });
 
