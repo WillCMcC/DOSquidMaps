@@ -106,6 +106,7 @@ apirouter.route('/markers')
   });
 	apirouter.route('/changeLocation')
 		.post(multipartMiddleware, function(req, res, next) {
+			console.log("Location Change")
 			var squid = req.body.squidChanger;
 			var newSquid = JSON.parse(squid);
 			for(var i=0;i<newSquid.images.length;i++){
@@ -162,7 +163,8 @@ apirouter.route('/new_image')
 // takes a file upload, uploads to imgur, saves to DB
 		apirouter.route('/new_squid')
 		.post( multipartMiddleware, function(req, res, next) {
-
+			// log
+			console.log("New Squid!")
 			// imgur setup and upload
 			imgur.setClientId('c495aa665a64c56');
       imgur.uploadFile(req.files.file.path)
