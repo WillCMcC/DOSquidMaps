@@ -86,7 +86,6 @@ var apirouter = express.Router();
 // middleware to use for all requests
 apirouter.use(function(req, res, next) {
     // do logging
-    console.log('Something is .');
   // make sure we go to the next routes and don't stop here
     next();
 });
@@ -97,6 +96,7 @@ apirouter.use(function(req, res, next) {
 
 apirouter.route('/markers')
 	.get(function(req, res) {
+		console.log("homepage view");
       Squid.find(function(err, squids) {
           if (err){res.send(err)};
           var squidObj = querysetToSquids(squids);
@@ -107,6 +107,7 @@ apirouter.route('/markers')
 	apirouter.route('/changeLocation')
 		.post(multipartMiddleware, function(req, res, next) {
 			console.log("Location Change")
+
 			var squid = req.body.squidChanger;
 			var newSquid = JSON.parse(squid);
 			for(var i=0;i<newSquid.images.length;i++){
@@ -124,6 +125,7 @@ apirouter.route('/markers')
 	  });
 		apirouter.route('/deletePicture/:id')
 			.delete( function(req, res, next) {
+				console.log("delete")
 				// var query = {'lat': req.params.id}
 				// db.collection.remove(query);
 				Squid.find({'lat': req.params.id}).remove().exec()
@@ -134,7 +136,7 @@ apirouter.route('/markers')
 // takes a file upload and saves it to DB
 apirouter.route('/new_image')
     .put( multipartMiddleware, function(req, res, next) {
-			console.log("new Squid")
+			console.log("New Squid")
 				// imgur setup and upload
 				imgur.setClientId('c495aa665a64c56');
 				imgur.uploadFile(req.files.file.path)
@@ -163,15 +165,20 @@ apirouter.route('/new_image')
 // takes a file upload, uploads to imgur, saves to DB
 		apirouter.route('/new_squid')
 		.post( multipartMiddleware, function(req, res, next) {
+<<<<<<< HEAD
 			// log
 			console.log("New Squid!")
+=======
+
+
+>>>>>>> afefef3cd36f17cc359ce5d165a8979efcff5d71
 			// imgur setup and upload
 			imgur.setClientId('c495aa665a64c56');
       imgur.uploadFile(req.files.file.path)
       // upload callback
 			    .then(function (json) {
-            // delete from temp memory
-            fs.unlink(req.files.file.path);
+
+
             // create object to save to DB
             var squid = new Squid({
               lat : req.body.latitude,
@@ -180,20 +187,34 @@ apirouter.route('/new_image')
               });
               //  save squid
               squid.save(function (err, data) {
+
 								res.send("success");
               if (err) console.log(err);
               });
               //  tweet new squid!
               if(process.argv[2] == 'prod'){
-							client.post('statuses/update', {
-                status: 'New Squid! ' + json.data.link,
-                lat: req.body.latitude,
-                long: req.body.longitude,
-                display_coordinates: true
-               },
-               function(error, tweet, response){
-                if(error) throw error;
-              });
+							var pic = fs.readFileSync(req.files.file.path);
+
+							client.post('media/upload', {media: pic}, function(error, media, response){
+								if(error){console.log(error)}
+							// If successful, a media object will be returned.
+							// Lets tweet it
+							var status = {
+							status: 'New Squid near ' + req.body.place,
+							lat: req.body.latitude,
+							long: req.body.longitude,
+							display_coordinates: true,
+							media_ids: media.media_id_string // Pass the media id string
+						}
+
+							client.post('statuses/update', status, function(error, tweet, response){
+
+							if (!error) {
+							}
+							fs.unlink(req.files.file.path);
+							});
+							});
+
 						}
           }
                 )
@@ -220,6 +241,7 @@ viewRoutes.use(function(req, res, next) {
 
 viewRoutes.route('/cms')
 	.get(function(req, res) {
+			console.log("cms view")
       res.sendFile('/public/CMS.html', { root: __dirname });
   });
 

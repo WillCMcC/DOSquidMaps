@@ -163,11 +163,28 @@ $scope.addClick = function(){
 
   function uploadUsingUpload(files, lat, long) {
         var file = files[0];
+        var streetname = "";
+        var geocoder = new google.maps.Geocoder;
+        console.log(geocoder)
+        var latlng = {
+          lat: lat,
+          lng: long
+        }
+        geocoder.geocode({'location': latlng}, function(results, status) {
+          if (status === google.maps.GeocoderStatus.OK) {
+          if (results[1]) {
+          streetname = results[1].address_components[0].long_name + " in " + results[1].address_components[1].long_name;
+        } else {
+          streetname = "unspecified location";
+        }
+        }
+
         file.upload = Upload.upload({
             url: '/api/new_squid',
             fields: {
                 'latitude': lat,
                 'longitude': long,
+                'place': streetname
             },
             file: file
         });
@@ -226,6 +243,7 @@ $scope.addClick = function(){
           });
           $scope.showMarkers();
         });
+      });
   };
 
 
