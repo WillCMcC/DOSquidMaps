@@ -165,13 +165,10 @@ apirouter.route('/new_image')
 // takes a file upload, uploads to imgur, saves to DB
 		apirouter.route('/new_squid')
 		.post( multipartMiddleware, function(req, res, next) {
-<<<<<<< HEAD
+
 			// log
 			console.log("New Squid!")
-=======
 
-
->>>>>>> afefef3cd36f17cc359ce5d165a8979efcff5d71
 			// imgur setup and upload
 			imgur.setClientId('c495aa665a64c56');
       imgur.uploadFile(req.files.file.path)
