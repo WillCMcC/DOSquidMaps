@@ -39,6 +39,7 @@ success(function(data, status, headers, config) {
       show: false,
       options: {
         draggable: true,
+        doCluster: true,
       }
 
 
