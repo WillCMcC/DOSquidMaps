@@ -40,11 +40,9 @@ app.use(compress())
 var env = process.argv[2] || 'dev';
 switch (env) {
     case 'dev':
-        var mongoDatabase = 'mongodb://localhost/realMap2';
+        var mongoDatabase = 'mongodb://localhost/squidMaps';
         break;
-    case 'prod':
-        var mongoDatabase = 'will:pass@ds035503.mongolab.com:35503/heroku_wb5mrk1g';
-        break;
+
 }
 //  connect to database
 mongoose.connect( mongoDatabase);
