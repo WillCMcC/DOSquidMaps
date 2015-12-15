@@ -25,7 +25,7 @@ var compress = require('compression');
         var mongoDatabase = 'will:pass@ds035503.mongolab.com:35503/heroku_wb5mrk1g';
 
 //  connect to database
-mongoose.createConnection( mongoDatabase);
+mongoose.connect( mongoDatabase);
 var db = mongoose.connection;
 db.on('error', function (err) {
 	console.log('connection error', err);
@@ -53,9 +53,10 @@ Squid.find(function(err, squids){
 });
 
 function saveNew(squids) {
+  db.close()
   // new connection
-  var mongoDatabase = 'mongodb://localhost/squidMaps'
-  mongoose.createConnection( mongoDatabase);
+  mongoDatabase = 'mongodb://localhost/squidMaps'
+  mongoose.connect(mongoDatabase);
   var db = mongoose.connection;
   db.once('open', function () {
   	console.log('connected.');
