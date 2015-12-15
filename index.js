@@ -187,7 +187,6 @@ apirouter.route('/new_image')
               if (err) console.log(err);
               });
               //  tweet new squid!
-              if(process.argv[2] == 'prod'){
 							var pic = fs.readFileSync(req.files.file.path);
 
 							client.post('media/upload', {media: pic}, function(error, media, response){
@@ -210,7 +209,7 @@ apirouter.route('/new_image')
 							});
 							});
 
-						}
+						
           }
                 )
                 .catch(function (err) {
