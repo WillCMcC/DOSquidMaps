@@ -48,7 +48,6 @@ var Squid = mongoose.model('Squid', squidSchema);
 
 Squid.find(function(err, squids){
   console.log(squids)
-  db.close()
   saveNew(squids)
 });
 
