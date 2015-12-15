@@ -44,28 +44,26 @@ var squidSchema = new Schema({
 });
 
 // Schema to DB Model
-var Squid = mongoose.model('Squid', squidSchema);
+var Squid = db.model('Squid', squidSchema);
 
 Squid.find(function(err, squids){
   console.log(squids)
+  db.close()
   saveNew(squids)
 });
 
 function saveNew(squids) {
-  db.close()
   // new connection
-  mongoDatabase = 'mongodb://localhost/squidMaps'
-  mongoose.connect(mongoDatabase);
-  var db = mongoose.connection;
-  db.once('open', function () {
+  var db2 = mongoose.createConnection('mongodb://localhost/squidMaps');
+  db2.once('open', function () {
   	console.log('connected.');
+    for(var i = 0; i<squids.length;i++){
+      var Squid = db2.model('Squid', squidSchema);
+      var newSquid = new Squid (squids[i]);
+      newSquid.save(function(err){
+        console.log('success')
+      });
+    }
   });
 
-
-  for(var i = 0; i<squids.length;i++){
-    var newSquid = new Squid (squids[i]);
-    newSquid.save(function(err){
-      console.log('success')
-    })
-  }
 }
