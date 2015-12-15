@@ -162,6 +162,7 @@ apirouter.route('/new_image')
 // route for /api/new_squid
 // takes a file upload, uploads to imgur, saves to DB
 		apirouter.route('/new_squid')
+		console.log("attempting to upload")
 		.post( multipartMiddleware, function(req, res, next) {
 
 			// log
